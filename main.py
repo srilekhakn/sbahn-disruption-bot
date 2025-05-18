@@ -9,7 +9,7 @@ def main():
     if response.status_code != 200:
         print("Failed to fetch page:", response.status_code)
         return
-
+    
     html_content = response.text
 
     # Step 2: Parse the HTML string directly
