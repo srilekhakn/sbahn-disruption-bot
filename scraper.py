@@ -1,5 +1,10 @@
 from bs4 import BeautifulSoup
-
+def exclude_night_disruptions(data):
+    keywords = ["night", "nights", "nacht"]
+    return [
+        d for d in data
+        if not any(kw in d.get("timestamp", "").lower() for kw in keywords)
+    ]
 def extract_morgen_disruptions(html_file=None, html_string=None):
     if html_string:
         soup = BeautifulSoup(html_string, "html.parser")
@@ -34,4 +39,4 @@ def extract_morgen_disruptions(html_file=None, html_string=None):
             "timestamp": timestamp,
             "reason": reason
         })
-    return data
+    return exclude_night_disruptions(data)
